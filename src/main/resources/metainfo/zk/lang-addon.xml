@@ -1,0 +1,15 @@
+<language>
+    <addon-name>custom</addon-name>
+    <depends>zkmax</depends>
+    <language-name>xul/html</language-name>
+
+    <component>
+        <component-name>biglistbox</component-name>
+        <component-class>org.zkoss.zkmax.Biglistbox</component-class>
+        <widget-class>zkmax.big.Biglistbox</widget-class>
+        <mold>
+            <mold-name>custom</mold-name>
+            <mold-uri>mold/biglistbox-custom.js</mold-uri>
+        </mold>
+    </component>
+</language>

@@ -1,0 +1,54 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<?page title="ZK Big Listbox Demo for 1 Trillion Data"?>
+<zk>
+    <style src="/css/demo.css.dsp"/>
+    <script><![CDATA[
+jq(document).click(function (evt) {
+	if (!jq.isAncestor(zk.Widget.$('$myComp').$n('body'), evt.target)
+		 && !jq.isAncestor(jq('$tip')[0], evt.target))
+		jq('$tip').fadeOut();
+}); 
+function doPosition() {
+	var n = jq('$tip');
+	var d = n.zk.dimension(true),
+		scX = jq.innerX(),
+		scY = jq.innerY(),
+		scMaxX = scX + jq.innerWidth(),
+		scMaxY = scY + jq.innerHeight(),
+		x = d.left,
+		y = d.top;
+			
+	if (x + d.width > scMaxX) {
+		var diff = x - (scMaxX - d.width);
+	 	x = scMaxX - d.width;
+	 	n.children(":first").css('margin-left', diff + 30 + 'px');
+	} else {
+	 	n.children(":first").css('margin-left', 30 + 'px');
+	}
+	if (x < scX) x = scX;
+	if (y + d.height > scMaxY) y = scMaxY - d.height;
+	if (y < scY) y = scY;
+
+	n.offset({top: y, left: x});
+	n.hide().fadeIn(400);
+}
+]]></script>
+    <window title="Big Listbox Demo for 1 Trillion Data" border="normal" apply="demo.DemoWindowComposer" width="100%"
+            height="100%">
+        <biglistbox id="myComp" hflex="1" vflex="1" xmlns:w="client" mold="custom"
+                    use="com.immediando.util.component.MyBigListbox">
+            <!-- Template example
+            <template name="heads">
+                <html><![CDATA[
+                    <div class="images_${matrixInfo[0]%28}" title="x=${matrixInfo[0]},y=${matrixInfo[1]}">${each[matrixInfo[0]]}</div>
+                ]]></html>
+            </template>
+            <template name="rows">
+                <html><![CDATA[
+                    <div class="images_${matrixInfo[0]%28}" title="x=${matrixInfo[0]},y=${matrixInfo[1]}">${each[matrixInfo[0]]}</div>
+                ]]></html>
+            </template> -->
+        </biglistbox>
+    </window>
+    <script src="custom-biglistbox.js"/>
+</zk>

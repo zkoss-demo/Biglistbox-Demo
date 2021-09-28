@@ -1,0 +1,102 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.zkoss.addon.demo</groupId>
+	<artifactId>biglistbox-demo</artifactId>
+	<version>0.8.0</version>
+	<properties>
+		<zk.version>9.6.0.1</zk.version>
+		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
+		<packname>-0.8.0-FL-${maven.build.timestamp}</packname>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+	<packaging>war</packaging>
+	<name>The biglistbox-demo Project</name>
+	<description>The biglistbox-demo Project</description>
+	<licenses>
+		<license>
+			<name>GNU LESSER GENERAL PUBLIC LICENSE, Version 3</name>
+			<url>http://www.gnu.org/licenses/lgpl.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<repositories>
+		<repository>
+			<id>ZK CE</id>
+			<name>ZK CE Repository</name>
+			<url>http://mavensync.zkoss.org/maven2</url>
+		</repository>
+		<repository>
+			<id>ZK EVAL</id>
+			<name>ZK Evaluation Repository</name>
+			<url>http://mavensync.zkoss.org/eval</url>
+		</repository>
+		<repository>
+			<id>ZK EE</id>
+			<url>https://maven.zkoss.org/repo/zk/ee</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>zkmaven</id>
+			<name>ZK Maven Plugin Repository</name>
+			<url>http://mavensync.zkoss.org/maven2</url>
+		</pluginRepository>
+	</pluginRepositories>
+	<dependencies>
+		<dependency>
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>zkmax</artifactId>
+			<version>${zk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>zkplus</artifactId>
+			<version>${zk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>zhtml</artifactId>
+			<version>${zk.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.4.27.v20200227</version>
+				<configuration>
+					<!--                    <scanIntervalSeconds>5</scanIntervalSeconds>-->
+					<webAppConfig>
+						<contextPath>/${project.artifactId}</contextPath>
+					</webAppConfig>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<version>2.1.1</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<copy file="${project.basedir}/lib/biglistbox-0.8.0.jar"
+									todir="${project.build.directory}/${project.artifactId}/WEB-INF/lib" />
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
